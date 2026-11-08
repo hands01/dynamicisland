@@ -65,7 +65,7 @@ jobs:
 
       # Gradle собирает APK без подписи: ключ ему не нужен, и сторонний код сборки его не увидит
       - name: Сборка
-        run: ./gradlew --no-daemon assembleRelease
+        run: bash ./gradlew --no-daemon assembleRelease
 
       # Подпись — отдельным шагом: ключ из секретов есть только здесь и сразу удаляется
       - name: Подпись
@@ -123,7 +123,7 @@ jobs:
       # Форк без ключа подписи: собираем отладочный APK (подписан обычным debug-ключом), чтобы его можно было поставить
       - name: Отладочная сборка (форк без ключа)
         if: steps.sign.outputs.signed != 'true'
-        run: ./gradlew --no-daemon assembleDebug
+        run: bash ./gradlew --no-daemon assembleDebug
 
       - uses: actions/upload-artifact@v4
         if: steps.sign.outputs.signed != 'true'
